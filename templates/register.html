@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <style>
+        /* Consistent styling with the Login page */
+        body {
+            background-color: #f0f2f5; /* Light grey background */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h2 {
+            color: #1c1e21;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        /* Styling the input fields for a cleaner look */
+        input {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #42b72a; /* Green for "Register/Create" actions */
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #36a420;
+        }
+
+        a {
+            margin-top: 15px;
+            color: #1877f2;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Create Account</h2>
+
+<form method="POST">
+    <input name="username" placeholder="Choose Username" required>
+    <input name="password" type="password" placeholder="Create Password" required>
+    <button type="submit">Register</button>
+</form>
+
+<a href="/">Back to Login</a>
+
+</body>
+</html>
