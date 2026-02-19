@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect
-import sqlite3
 import pandas as pd
 
 app = Flask(__name__)
@@ -7,27 +6,8 @@ app = Flask(__name__)
 # ---------------- LOAD CSV ----------------
 books = pd.read_csv("book_dataaa.csv")
 
-
-# ---------------- INIT DATABASE ----------------
-def init_db():
-    db = sqlite3.connect("users.db")
-    db.execute("""
-        CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT,
-            password TEXT
-        )
-    """)
-    db.commit()
-    db.close()
-
-init_db()
-
-
-# ---------------- DATABASE CONNECTION ----------------
-def get_db():
-    return sqlite3.connect("users.db")
-
+# ---------------- TEMP USER STORAGE (for Vercel) ----------------
+users = {}
 
 # ---------------- LOGIN ----------------
 @app.route("/", methods=["GET", "POST"])
@@ -37,14 +17,7 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
 
-        db = get_db()
-        user = db.execute(
-            "SELECT * FROM users WHERE username=? AND password=?",
-            (username, password)
-        ).fetchone()
-        db.close()
-
-        if user:
+        if username in users and users[username] == password:
             return redirect("/home")
         else:
             return "Invalid login!"
@@ -60,14 +33,7 @@ def register():
         username = request.form["username"]
         password = request.form["password"]
 
-        db = get_db()
-        db.execute(
-            "INSERT INTO users(username,password) VALUES(?,?)",
-            (username, password)
-        )
-        db.commit()
-        db.close()
-
+        users[username] = password
         return redirect("/")
 
     return render_template("register.html")
@@ -102,8 +68,3 @@ def book_detail(upc):
         return render_template("book_detail.html", book=book[0])
     else:
         return "Book not found"
-
-
-# ---------------- RUN APP ----------------
-if __name__ == "__main__":
-    app.run(debug=True)
