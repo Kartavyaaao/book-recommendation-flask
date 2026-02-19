@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BookVerse</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<h1>📚 Book Recommendations</h1>
+
+<form method="GET">
+    <input name="search" placeholder="Search books...">
+    <button type="submit">Search</button>
+</form>
+
+<div class="books">
+
+{% for book in books %}
+<div class="card">
+
+    <img src="{{ book.Image }}" width="120">
+
+    <h3>{{ book.Title }}</h3>
+
+    <p>Category: {{ book.Category }}</p>
+
+    <p>Price: {{ book["Price (incl. tax)"] }}</p>
+
+    <a class="btn" href="/book/{{ book.UPC }}">Details</a>
+
+</div>
+{% endfor %}
+
+</div>
+
+</body>
+</html>
