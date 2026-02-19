@@ -1,0 +1,103 @@
+body {
+    font-family: Arial;
+    text-align: center;
+    background: #f4f4f4;
+}
+
+.books {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    background: white;
+    padding: 15px;
+    margin: 15px;
+    width: 220px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px gray;
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 12px;
+    background: black;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+
+
+
+/* --- Book Detail Page Styles --- */
+
+.detail-page {
+    background-color: #f8f9fa; /* A soft neutral background */
+}
+
+.detail-container {
+    max-width: 900px;
+    margin: 30px auto;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.book-flex {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.book-image img {
+    width: 280px; /* Slightly larger for the detail view */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.book-info h1 {
+    margin-top: 0;
+    color: #2c3e50;
+    font-size: 2rem;
+}
+
+.badge {
+    display: inline-block;
+    background: #e1f5fe;
+    color: #0288d1;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.price {
+    font-size: 1.4rem;
+    color: #27ae60;
+    margin: 15px 0;
+}
+
+.description {
+    color: #555;
+    line-height: 1.8;
+}
+
+.back-link {
+    text-decoration: none;
+    color: #3498db;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+/* Responsive fix for phones */
+@media (max-width: 768px) {
+    .book-flex {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+  }
