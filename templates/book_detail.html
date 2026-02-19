@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ book.Title }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+    
+    <style>
+        /* Specific styles for the detail page to ensure it looks good */
+        .detail-page {
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .detail-container {
+            max-width: 900px;
+            margin: 30px auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .book-flex {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .book-image img {
+            width: 280px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .book-info h1 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #e1f5fe;
+            color: #0288d1;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .price {
+            font-size: 1.4rem;
+            color: #27ae60;
+            margin: 15px 0;
+        }
+
+        .description {
+            color: #555;
+            line-height: 1.8;
+        }
+
+        #moreBtn {
+            background: none;
+            border: none;
+            color: #1a73e8;
+            padding: 0;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .book-flex { flex-direction: column; align-items: center; text-align: center; }
+        }
+    </style>
+</head>
+<body class="detail-page">
+
+<div class="detail-container">
+    <a href="/home" class="back-link">⬅ Back to Home</a>
+    
+    <div class="book-flex">
+        <div class="book-image">
+            <img src="{{ book.Image }}" alt="{{ book.Title }}">
+        </div>
+
+        <div class="book-info">
+            <h1>{{ book.Title }}</h1>
+            <p class="badge">{{ book.Category }}</p>
+            <p class="price"><b>Price:</b> {{ book["Price (incl. tax)"] }}</p>
+            <p><b>Rating:</b> ⭐ {{ book.Rating }}</p>
+            <p><b>Availability:</b> {{ book.Availability }}</p>
+            
+            <hr>
+            
+            <h3>📖 Summary</h3>
+            <p class="description">
+                {{ book.Description[:200] }}<span id="dots">...</span><span id="more-text" style="display: none;">{{ book.Description[200:] }}</span>
+            </p>
+            <button onclick="toggleDescription()" id="moreBtn">Read more</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleDescription() {
+        var dots = document.getElementById("dots");
+        var moreText = document.getElementById("more-text");
+        var btnText = document.getElementById("moreBtn");
+
+        if (dots.style.display === "none") {
+            dots.style.display = "inline";
+            btnText.innerHTML = "Read more";
+            moreText.style.display = "none";
+        } else {
+            dots.style.display = "none";
+            btnText.innerHTML = "Read less";
+            moreText.style.display = "inline";
+        }
+    }
+</script>
+
+</body>
+</html>
