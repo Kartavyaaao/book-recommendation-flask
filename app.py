@@ -4,9 +4,27 @@ import pandas as pd
 
 app = Flask(__name__)
 
-# LOAD CSV
+# ---------------- LOAD CSV ----------------
 books = pd.read_csv("book_dataaa.csv")
 
+
+# ---------------- INIT DATABASE ----------------
+def init_db():
+    db = sqlite3.connect("users.db")
+    db.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT,
+            password TEXT
+        )
+    """)
+    db.commit()
+    db.close()
+
+init_db()
+
+
+# ---------------- DATABASE CONNECTION ----------------
 def get_db():
     return sqlite3.connect("users.db")
 
@@ -24,6 +42,7 @@ def login():
             "SELECT * FROM users WHERE username=? AND password=?",
             (username, password)
         ).fetchone()
+        db.close()
 
         if user:
             return redirect("/home")
@@ -47,6 +66,7 @@ def register():
             (username, password)
         )
         db.commit()
+        db.close()
 
         return redirect("/")
 
@@ -84,5 +104,6 @@ def book_detail(upc):
         return "Book not found"
 
 
+# ---------------- RUN APP ----------------
 if __name__ == "__main__":
     app.run(debug=True)
