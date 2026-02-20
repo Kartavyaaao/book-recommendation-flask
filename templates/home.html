@@ -9,8 +9,16 @@
 
 <h1>📚 Book Recommendations</h1>
 
-<form method="GET">
-    <input name="search" placeholder="Search books...">
+<form method="GET" action="/home" style="margin-bottom: 20px;">
+    <input name="search" placeholder="Search books..." value="{{ request.args.get('search', '') }}">
+    
+    <select name="sort" onchange="this.form.submit()">
+        <option value="">Sort By...</option>
+        <option value="Title" {% if request.args.get('sort') == 'Title' %}selected{% endif %}>Title (A-Z)</option>
+        <option value="Category" {% if request.args.get('sort') == 'Category' %}selected{% endif %}>Category</option>
+        <option value="Price (incl. tax)" {% if request.args.get('sort') == 'Price (incl. tax)' %}selected{% endif %}>Price (Low to High)</option>
+    </select>
+
     <button type="submit">Search</button>
 </form>
 
@@ -18,21 +26,20 @@
 
 {% for book in books %}
 <div class="card">
-
-    <img src="{{ book.Image }}" width="120">
-
+    <img src="{{ book.Image }}" width="120" alt="Book Cover">
     <h3>{{ book.Title }}</h3>
-
     <p>Category: {{ book.Category }}</p>
-
     <p>Price: {{ book["Price (incl. tax)"] }}</p>
-
     <a class="btn" href="/book/{{ book.UPC }}">Details</a>
-
 </div>
 {% endfor %}
+
+{% if not books %}
+    <p>No books found matching your criteria.</p>
+{% endif %}
 
 </div>
 
 </body>
-</html>
+    </html>
+    
